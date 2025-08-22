@@ -1,0 +1,2093 @@
+{
+  "schemaVersion": 1,
+  "workflows": [
+    {
+      "id": "WF-BOT-5001",
+      "name": "Feature: BigQuery pr_evaluations helpers",
+      "linearIssueKey": "BOT-5001",
+      "github": { "owner": "charlie-labs", "repo": "charlie", "prNumber": 4301 }
+    },
+    {
+      "id": "WF-BOT-5002",
+      "name": "Bug: fix Slack thread link formatting",
+      "linearIssueKey": "BOT-5002",
+      "github": { "owner": "charlie-labs", "repo": "charlie", "prNumber": 4302 }
+    },
+    {
+      "id": "WF-BOT-5003",
+      "name": "Infra: speed up CI (parallel lint/tests, cache)",
+      "linearIssueKey": "BOT-5003",
+      "github": { "owner": "charlie-labs", "repo": "charlie", "prNumber": 4303 }
+    },
+    {
+      "id": "WF-BOT-5004",
+      "name": "Docs: onboarding updates and examples",
+      "linearIssueKey": "BOT-5004",
+      "github": { "owner": "charlie-labs", "repo": "charlie", "prNumber": 4304 }
+    },
+    {
+      "id": "WF-BOT-5005",
+      "name": "Refactor: extract GitHub image URL signer",
+      "linearIssueKey": "BOT-5005",
+      "github": { "owner": "charlie-labs", "repo": "charlie", "prNumber": 4305 }
+    }
+  ],
+  "events": [
+    {
+      "id": "evt-WF-BOT-5001-001",
+      "ts": "2025-08-12T09:02:15Z",
+      "provider": "linear",
+      "type": "issue.created",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 1,
+      "actor": {
+        "id": "riley",
+        "displayName": "Riley Tomasek",
+        "handle": "rileytomasek",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5001",
+        "key": "BOT-5001",
+        "title": "Feature: BigQuery pr_evaluations helpers",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5001"
+      },
+      "payload": {
+        "description": "Expose read/write helpers for online_evals.pr_evaluations in event-queries (listRows/insertRow)."
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5001-002",
+      "ts": "2025-08-12T09:03:10Z",
+      "provider": "linear",
+      "type": "issue.labeled",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 2,
+      "actor": {
+        "id": "riley",
+        "displayName": "Riley Tomasek",
+        "handle": "rileytomasek",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5001",
+        "key": "BOT-5001",
+        "title": "Feature: BigQuery pr_evaluations helpers",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5001"
+      },
+      "payload": { "labelsAdded": ["feature", "p1"] }
+    },
+    {
+      "id": "evt-WF-BOT-5001-003",
+      "ts": "2025-08-12T09:03:40Z",
+      "provider": "linear",
+      "type": "issue.assigned",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 3,
+      "actor": {
+        "id": "riley",
+        "displayName": "Riley Tomasek",
+        "handle": "rileytomasek",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5001",
+        "key": "BOT-5001",
+        "title": "Feature: BigQuery pr_evaluations helpers",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5001"
+      },
+      "payload": { "assigneesAdded": ["Charlie"] }
+    },
+    {
+      "id": "evt-WF-BOT-5001-004",
+      "ts": "2025-08-12T09:04:10Z",
+      "provider": "linear",
+      "type": "issue.status_changed",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 4,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "charlie",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5001",
+        "key": "BOT-5001",
+        "title": "Feature: BigQuery pr_evaluations helpers",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5001"
+      },
+      "payload": { "status": { "from": "Todo", "to": "In progress" } }
+    },
+    {
+      "id": "evt-WF-BOT-5001-005",
+      "ts": "2025-08-12T09:05:00Z",
+      "provider": "linear",
+      "type": "issue.commented",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 5,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "charlie",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5001",
+        "key": "BOT-5001",
+        "title": "Feature: BigQuery pr_evaluations helpers",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5001"
+      },
+      "payload": {
+        "text": "Starting now. Plan: add table constants, schema + helpers, wire into bigquery namespace."
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5001-006",
+      "ts": "2025-08-12T10:18:42Z",
+      "provider": "github",
+      "type": "pr.opened",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 6,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "CharlieCreates",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4301,
+        "title": "event-queries: add pr_evaluations listRows & insertRow",
+        "url": "https://github.com/charlie-labs/charlie/pull/4301"
+      },
+      "payload": {
+        "branch": "feat/pr-evaluations",
+        "description": "Implements BOT-5001. Adds BigQuery helpers for online_evals.pr_evaluations. Closes BOT-5001."
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5001-007",
+      "ts": "2025-08-12T10:19:05Z",
+      "provider": "linear",
+      "type": "issue.linked",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 7,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "charlie",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5001",
+        "key": "BOT-5001",
+        "title": "Feature: BigQuery pr_evaluations helpers",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5001"
+      },
+      "payload": {
+        "link": {
+          "type": "github.pr",
+          "url": "https://github.com/charlie-labs/charlie/pull/4301",
+          "number": 4301,
+          "title": "event-queries: add pr_evaluations listRows & insertRow"
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5001-008",
+      "ts": "2025-08-12T10:19:06Z",
+      "provider": "linear",
+      "type": "issue.status_changed",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 8,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "charlie",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5001",
+        "key": "BOT-5001",
+        "title": "Feature: BigQuery pr_evaluations helpers",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5001"
+      },
+      "payload": { "status": { "from": "In progress", "to": "In review" } }
+    },
+    {
+      "id": "evt-WF-BOT-5001-009",
+      "ts": "2025-08-12T10:20:00Z",
+      "provider": "github",
+      "type": "pr.labeled",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 9,
+      "actor": {
+        "id": "charliecreates[bot]",
+        "displayName": "charliecreates[bot]",
+        "handle": "charliecreates[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4301,
+        "title": "event-queries: add pr_evaluations listRows & insertRow",
+        "url": "https://github.com/charlie-labs/charlie/pull/4301"
+      },
+      "payload": { "labelsAdded": ["charlie", "feature"] }
+    },
+    {
+      "id": "evt-WF-BOT-5001-010",
+      "ts": "2025-08-12T10:20:05Z",
+      "provider": "github",
+      "type": "pr.review_requested",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 10,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "CharlieCreates",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4301,
+        "title": "event-queries: add pr_evaluations listRows & insertRow",
+        "url": "https://github.com/charlie-labs/charlie/pull/4301"
+      },
+      "payload": { "reviewersAdded": ["rileytomasek"] }
+    },
+    {
+      "id": "evt-WF-BOT-5001-011",
+      "ts": "2025-08-12T10:21:10Z",
+      "provider": "github",
+      "type": "ci.check_run",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 11,
+      "actor": {
+        "id": "github-actions[bot]",
+        "displayName": "GitHub Actions",
+        "handle": "github-actions[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "check_run",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "title": "lint"
+      },
+      "payload": { "check": { "name": "lint", "status": "queued" } }
+    },
+    {
+      "id": "evt-WF-BOT-5001-012",
+      "ts": "2025-08-12T10:21:12Z",
+      "provider": "github",
+      "type": "ci.check_run",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 12,
+      "actor": {
+        "id": "github-actions[bot]",
+        "displayName": "GitHub Actions",
+        "handle": "github-actions[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "check_run",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "title": "lint"
+      },
+      "payload": { "check": { "name": "lint", "status": "in_progress" } }
+    },
+    {
+      "id": "evt-WF-BOT-5001-013",
+      "ts": "2025-08-12T10:22:00Z",
+      "provider": "github",
+      "type": "ci.check_run",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 13,
+      "actor": {
+        "id": "github-actions[bot]",
+        "displayName": "GitHub Actions",
+        "handle": "github-actions[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "check_run",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "title": "lint"
+      },
+      "payload": {
+        "check": {
+          "name": "lint",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5001-014",
+      "ts": "2025-08-12T10:22:05Z",
+      "provider": "github",
+      "type": "ci.check_run",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 14,
+      "actor": {
+        "id": "github-actions[bot]",
+        "displayName": "GitHub Actions",
+        "handle": "github-actions[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "check_run",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "title": "typecheck"
+      },
+      "payload": { "check": { "name": "typecheck", "status": "queued" } }
+    },
+    {
+      "id": "evt-WF-BOT-5001-015",
+      "ts": "2025-08-12T10:22:06Z",
+      "provider": "github",
+      "type": "ci.check_run",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 15,
+      "actor": {
+        "id": "github-actions[bot]",
+        "displayName": "GitHub Actions",
+        "handle": "github-actions[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "check_run",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "title": "typecheck"
+      },
+      "payload": { "check": { "name": "typecheck", "status": "in_progress" } }
+    },
+    {
+      "id": "evt-WF-BOT-5001-016",
+      "ts": "2025-08-12T10:23:10Z",
+      "provider": "github",
+      "type": "ci.check_run",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 16,
+      "actor": {
+        "id": "github-actions[bot]",
+        "displayName": "GitHub Actions",
+        "handle": "github-actions[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "check_run",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "title": "typecheck"
+      },
+      "payload": {
+        "check": {
+          "name": "typecheck",
+          "status": "completed",
+          "conclusion": "failure"
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5001-017",
+      "ts": "2025-08-12T10:24:05Z",
+      "provider": "github",
+      "type": "pr.commented",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 17,
+      "actor": {
+        "id": "riley",
+        "displayName": "Riley Tomasek",
+        "handle": "rileytomasek",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4301,
+        "title": "event-queries: add pr_evaluations listRows & insertRow",
+        "url": "https://github.com/charlie-labs/charlie/pull/4301"
+      },
+      "payload": {
+        "text": "Type errors in bigquery.ts, can you fix and re-run?"
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5001-018",
+      "ts": "2025-08-12T10:31:50Z",
+      "provider": "github",
+      "type": "pr.commit_pushed",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 18,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "CharlieCreates",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "commit",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "title": "fix: update types and exports"
+      },
+      "payload": {
+        "branch": "feat/pr-evaluations",
+        "commit": {
+          "sha": "6a1b2c3",
+          "message": "fix(event-queries): correct types and exports",
+          "filesChanged": 3,
+          "additions": 42,
+          "deletions": 10
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5001-019",
+      "ts": "2025-08-12T10:32:10Z",
+      "provider": "github",
+      "type": "ci.check_run",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 19,
+      "actor": {
+        "id": "github-actions[bot]",
+        "displayName": "GitHub Actions",
+        "handle": "github-actions[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "check_run",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "title": "typecheck"
+      },
+      "payload": { "check": { "name": "typecheck", "status": "queued" } }
+    },
+    {
+      "id": "evt-WF-BOT-5001-020",
+      "ts": "2025-08-12T10:32:12Z",
+      "provider": "github",
+      "type": "ci.check_run",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 20,
+      "actor": {
+        "id": "github-actions[bot]",
+        "displayName": "GitHub Actions",
+        "handle": "github-actions[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "check_run",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "title": "typecheck"
+      },
+      "payload": { "check": { "name": "typecheck", "status": "in_progress" } }
+    },
+    {
+      "id": "evt-WF-BOT-5001-021",
+      "ts": "2025-08-12T10:33:05Z",
+      "provider": "github",
+      "type": "ci.check_run",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 21,
+      "actor": {
+        "id": "github-actions[bot]",
+        "displayName": "GitHub Actions",
+        "handle": "github-actions[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "check_run",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "title": "typecheck"
+      },
+      "payload": {
+        "check": {
+          "name": "typecheck",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5001-022",
+      "ts": "2025-08-12T10:34:20Z",
+      "provider": "github",
+      "type": "pr.review_submitted",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 22,
+      "actor": {
+        "id": "riley",
+        "displayName": "Riley Tomasek",
+        "handle": "rileytomasek",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "review",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4301,
+        "title": "Review by Riley"
+      },
+      "payload": {
+        "review": {
+          "state": "approved",
+          "body": "Looks great after the type fixes."
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5001-023",
+      "ts": "2025-08-12T10:35:10Z",
+      "provider": "github",
+      "type": "pr.merged",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 23,
+      "actor": {
+        "id": "charliecreates[bot]",
+        "displayName": "charliecreates[bot]",
+        "handle": "charliecreates[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4301,
+        "title": "event-queries: add pr_evaluations listRows & insertRow",
+        "url": "https://github.com/charlie-labs/charlie/pull/4301"
+      },
+      "payload": { "closeReason": "merged via squash" }
+    },
+    {
+      "id": "evt-WF-BOT-5001-024",
+      "ts": "2025-08-12T10:36:00Z",
+      "provider": "linear",
+      "type": "issue.status_changed",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 24,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "charlie",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5001",
+        "key": "BOT-5001",
+        "title": "Feature: BigQuery pr_evaluations helpers",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5001"
+      },
+      "payload": { "status": { "from": "In review", "to": "Done" } }
+    },
+    {
+      "id": "evt-WF-BOT-5001-025",
+      "ts": "2025-08-12T10:36:15Z",
+      "provider": "linear",
+      "type": "issue.commented",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 25,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "charlie",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5001",
+        "key": "BOT-5001",
+        "title": "Feature: BigQuery pr_evaluations helpers",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5001"
+      },
+      "payload": {
+        "text": "Merged in <https://github.com/charlie-labs/charlie/pull/4301|PR #4301>."
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5001-026",
+      "ts": "2025-08-12T10:36:30Z",
+      "provider": "linear",
+      "type": "issue.closed",
+      "workflowId": "WF-BOT-5001",
+      "sequence": 26,
+      "actor": {
+        "id": "riley",
+        "displayName": "Riley Tomasek",
+        "handle": "rileytomasek",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5001",
+        "key": "BOT-5001",
+        "title": "Feature: BigQuery pr_evaluations helpers",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5001"
+      },
+      "payload": { "closeReason": "Merged via PR #4301" }
+    },
+
+    {
+      "id": "evt-WF-BOT-5002-001",
+      "ts": "2025-08-14T14:10:00Z",
+      "provider": "linear",
+      "type": "issue.created",
+      "workflowId": "WF-BOT-5002",
+      "sequence": 1,
+      "actor": {
+        "id": "brian",
+        "displayName": "Brian Begy",
+        "handle": "brianbegy",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5002",
+        "key": "BOT-5002",
+        "title": "Bug: fix Slack thread link formatting",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5002"
+      },
+      "payload": {
+        "description": "Slack thread links render as plain text in run-viewer. Detect and wrap with angle-bracket Slack link syntax."
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5002-002",
+      "ts": "2025-08-14T14:11:05Z",
+      "provider": "linear",
+      "type": "issue.assigned",
+      "workflowId": "WF-BOT-5002",
+      "sequence": 2,
+      "actor": {
+        "id": "brian",
+        "displayName": "Brian Begy",
+        "handle": "brianbegy",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5002",
+        "key": "BOT-5002",
+        "title": "Bug: fix Slack thread link formatting",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5002"
+      },
+      "payload": { "assigneesAdded": ["Charlie"] }
+    },
+    {
+      "id": "evt-WF-BOT-5002-003",
+      "ts": "2025-08-14T14:11:30Z",
+      "provider": "linear",
+      "type": "issue.status_changed",
+      "workflowId": "WF-BOT-5002",
+      "sequence": 3,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "charlie",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5002",
+        "key": "BOT-5002",
+        "title": "Bug: fix Slack thread link formatting",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5002"
+      },
+      "payload": { "status": { "from": "Todo", "to": "In progress" } }
+    },
+    {
+      "id": "evt-WF-BOT-5002-004",
+      "ts": "2025-08-14T15:05:45Z",
+      "provider": "github",
+      "type": "pr.draft",
+      "workflowId": "WF-BOT-5002",
+      "sequence": 4,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "CharlieCreates",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4302,
+        "title": "run-viewer: wrap Slack thread links in <>",
+        "url": "https://github.com/charlie-labs/charlie/pull/4302"
+      },
+      "payload": {
+        "branch": "fix/slack-thread-links",
+        "description": "Work in progress for BOT-5002."
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5002-005",
+      "ts": "2025-08-14T15:06:10Z",
+      "provider": "linear",
+      "type": "issue.linked",
+      "workflowId": "WF-BOT-5002",
+      "sequence": 5,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "charlie",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5002",
+        "key": "BOT-5002",
+        "title": "Bug: fix Slack thread link formatting",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5002"
+      },
+      "payload": {
+        "link": {
+          "type": "github.pr",
+          "url": "https://github.com/charlie-labs/charlie/pull/4302",
+          "number": 4302,
+          "title": "run-viewer: wrap Slack thread links in <>"
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5002-006",
+      "ts": "2025-08-14T16:40:12Z",
+      "provider": "github",
+      "type": "pr.ready_for_review",
+      "workflowId": "WF-BOT-5002",
+      "sequence": 6,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "CharlieCreates",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4302,
+        "title": "run-viewer: wrap Slack thread links in <>",
+        "url": "https://github.com/charlie-labs/charlie/pull/4302"
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5002-007",
+      "ts": "2025-08-14T16:41:00Z",
+      "provider": "github",
+      "type": "pr.review_requested",
+      "workflowId": "WF-BOT-5002",
+      "sequence": 7,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "CharlieCreates",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4302,
+        "title": "run-viewer: wrap Slack thread links in <>",
+        "url": "https://github.com/charlie-labs/charlie/pull/4302"
+      },
+      "payload": { "reviewersAdded": ["brianbegy"] }
+    },
+    {
+      "id": "evt-WF-BOT-5002-008",
+      "ts": "2025-08-14T16:45:55Z",
+      "provider": "github",
+      "type": "pr.review_submitted",
+      "workflowId": "WF-BOT-5002",
+      "sequence": 8,
+      "actor": {
+        "id": "brian",
+        "displayName": "Brian Begy",
+        "handle": "brianbegy",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "review",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4302,
+        "title": "Review by Brian"
+      },
+      "payload": {
+        "review": {
+          "state": "changes_requested",
+          "body": "Please handle cases where the text already has <> to avoid double-wrapping."
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5002-009",
+      "ts": "2025-08-14T17:05:03Z",
+      "provider": "github",
+      "type": "pr.commit_pushed",
+      "workflowId": "WF-BOT-5002",
+      "sequence": 9,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "CharlieCreates",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "commit",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "title": "fix: avoid double wrap for Slack links"
+      },
+      "payload": {
+        "branch": "fix/slack-thread-links",
+        "commit": {
+          "sha": "8f9e1d2",
+          "message": "fix(run-viewer): guard against already-wrapped Slack links",
+          "filesChanged": 2,
+          "additions": 18,
+          "deletions": 6
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5002-010",
+      "ts": "2025-08-14T17:12:30Z",
+      "provider": "github",
+      "type": "ci.check_run",
+      "workflowId": "WF-BOT-5002",
+      "sequence": 10,
+      "actor": {
+        "id": "github-actions[bot]",
+        "displayName": "GitHub Actions",
+        "handle": "github-actions[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "check_run",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "title": "test"
+      },
+      "payload": {
+        "check": {
+          "name": "test",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5002-011",
+      "ts": "2025-08-14T17:15:44Z",
+      "provider": "github",
+      "type": "pr.review_submitted",
+      "workflowId": "WF-BOT-5002",
+      "sequence": 11,
+      "actor": {
+        "id": "brian",
+        "displayName": "Brian Begy",
+        "handle": "brianbegy",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "review",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4302,
+        "title": "Review by Brian"
+      },
+      "payload": {
+        "review": {
+          "state": "approved",
+          "body": "Thanks for the guard; approved."
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5002-012",
+      "ts": "2025-08-14T17:16:10Z",
+      "provider": "github",
+      "type": "pr.merged",
+      "workflowId": "WF-BOT-5002",
+      "sequence": 12,
+      "actor": {
+        "id": "charliecreates[bot]",
+        "displayName": "charliecreates[bot]",
+        "handle": "charliecreates[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4302,
+        "title": "run-viewer: wrap Slack thread links in <>",
+        "url": "https://github.com/charlie-labs/charlie/pull/4302"
+      },
+      "payload": { "closeReason": "merged via squash" }
+    },
+    {
+      "id": "evt-WF-BOT-5002-013",
+      "ts": "2025-08-14T17:18:02Z",
+      "provider": "linear",
+      "type": "issue.status_changed",
+      "workflowId": "WF-BOT-5002",
+      "sequence": 13,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "charlie",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5002",
+        "key": "BOT-5002",
+        "title": "Bug: fix Slack thread link formatting",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5002"
+      },
+      "payload": { "status": { "from": "In progress", "to": "Done" } }
+    },
+    {
+      "id": "evt-WF-BOT-5002-014",
+      "ts": "2025-08-14T17:18:20Z",
+      "provider": "linear",
+      "type": "issue.closed",
+      "workflowId": "WF-BOT-5002",
+      "sequence": 14,
+      "actor": {
+        "id": "brian",
+        "displayName": "Brian Begy",
+        "handle": "brianbegy",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5002",
+        "key": "BOT-5002",
+        "title": "Bug: fix Slack thread link formatting",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5002"
+      }
+    },
+
+    {
+      "id": "evt-WF-BOT-5003-001",
+      "ts": "2025-08-16T12:00:00Z",
+      "provider": "linear",
+      "type": "issue.created",
+      "workflowId": "WF-BOT-5003",
+      "sequence": 1,
+      "actor": {
+        "id": "josh",
+        "displayName": "Josh Kirby",
+        "handle": "joshk132",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5003",
+        "key": "BOT-5003",
+        "title": "Infra: speed up CI (parallel lint/tests, cache)",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5003"
+      },
+      "payload": {
+        "description": "Use turbo cache + parallelize lint/test. Ensure reproducible results and no flakiness."
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5003-002",
+      "ts": "2025-08-16T12:00:30Z",
+      "provider": "linear",
+      "type": "issue.labeled",
+      "workflowId": "WF-BOT-5003",
+      "sequence": 2,
+      "actor": {
+        "id": "josh",
+        "displayName": "Josh Kirby",
+        "handle": "joshk132",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5003",
+        "key": "BOT-5003",
+        "title": "Infra: speed up CI (parallel lint/tests, cache)",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5003"
+      },
+      "payload": { "labelsAdded": ["infra", "p2"] }
+    },
+    {
+      "id": "evt-WF-BOT-5003-003",
+      "ts": "2025-08-16T12:01:00Z",
+      "provider": "linear",
+      "type": "issue.assigned",
+      "workflowId": "WF-BOT-5003",
+      "sequence": 3,
+      "actor": {
+        "id": "josh",
+        "displayName": "Josh Kirby",
+        "handle": "joshk132",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5003",
+        "key": "BOT-5003",
+        "title": "Infra: speed up CI (parallel lint/tests, cache)",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5003"
+      },
+      "payload": { "assigneesAdded": ["Charlie"] }
+    },
+    {
+      "id": "evt-WF-BOT-5003-004",
+      "ts": "2025-08-16T13:40:00Z",
+      "provider": "github",
+      "type": "pr.opened",
+      "workflowId": "WF-BOT-5003",
+      "sequence": 4,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "CharlieCreates",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4303,
+        "title": "ci: parallelize lint/test & enable turbo cache",
+        "url": "https://github.com/charlie-labs/charlie/pull/4303"
+      },
+      "payload": {
+        "branch": "ci/parallel-and-cache",
+        "description": "Implements BOT-5003. Parallel lint/test and enable Turbo cache. Closes BOT-5003."
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5003-005",
+      "ts": "2025-08-16T13:40:20Z",
+      "provider": "linear",
+      "type": "issue.linked",
+      "workflowId": "WF-BOT-5003",
+      "sequence": 5,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "charlie",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5003",
+        "key": "BOT-5003",
+        "title": "Infra: speed up CI (parallel lint/tests, cache)",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5003"
+      },
+      "payload": {
+        "link": {
+          "type": "github.pr",
+          "url": "https://github.com/charlie-labs/charlie/pull/4303",
+          "number": 4303,
+          "title": "ci: parallelize lint/test & enable turbo cache"
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5003-006",
+      "ts": "2025-08-16T13:41:00Z",
+      "provider": "github",
+      "type": "pr.review_requested",
+      "workflowId": "WF-BOT-5003",
+      "sequence": 6,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "CharlieCreates",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4303,
+        "title": "ci: parallelize lint/test & enable turbo cache",
+        "url": "https://github.com/charlie-labs/charlie/pull/4303"
+      },
+      "payload": { "reviewersAdded": ["joshk132", "rileytomasek"] }
+    },
+    {
+      "id": "evt-WF-BOT-5003-007",
+      "ts": "2025-08-16T13:42:10Z",
+      "provider": "github",
+      "type": "ci.check_run",
+      "workflowId": "WF-BOT-5003",
+      "sequence": 7,
+      "actor": {
+        "id": "github-actions[bot]",
+        "displayName": "GitHub Actions",
+        "handle": "github-actions[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "check_run",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "title": "test"
+      },
+      "payload": {
+        "check": {
+          "name": "test",
+          "status": "completed",
+          "conclusion": "failure"
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5003-008",
+      "ts": "2025-08-16T13:42:40Z",
+      "provider": "github",
+      "type": "pr.commented",
+      "workflowId": "WF-BOT-5003",
+      "sequence": 8,
+      "actor": {
+        "id": "josh",
+        "displayName": "Josh Kirby",
+        "handle": "joshk132",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4303,
+        "title": "ci: parallelize lint/test & enable turbo cache",
+        "url": "https://github.com/charlie-labs/charlie/pull/4303"
+      },
+      "payload": {
+        "text": "Flaky test: apps/run-viewer tests sometimes fail. Can you rerun and, if needed, increase timeout?"
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5003-009",
+      "ts": "2025-08-16T13:48:05Z",
+      "provider": "github",
+      "type": "pr.commit_pushed",
+      "workflowId": "WF-BOT-5003",
+      "sequence": 9,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "CharlieCreates",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "commit",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "title": "test: bump timeout; cache setup"
+      },
+      "payload": {
+        "branch": "ci/parallel-and-cache",
+        "commit": {
+          "sha": "a1b2c3d",
+          "message": "test(run-viewer): bump timeout; ci: add turbo cache restore/save",
+          "filesChanged": 4,
+          "additions": 65,
+          "deletions": 8
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5003-010",
+      "ts": "2025-08-16T13:49:10Z",
+      "provider": "github",
+      "type": "ci.check_run",
+      "workflowId": "WF-BOT-5003",
+      "sequence": 10,
+      "actor": {
+        "id": "github-actions[bot]",
+        "displayName": "GitHub Actions",
+        "handle": "github-actions[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "check_run",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "title": "test"
+      },
+      "payload": {
+        "check": {
+          "name": "test",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5003-011",
+      "ts": "2025-08-16T13:50:30Z",
+      "provider": "github",
+      "type": "pr.review_submitted",
+      "workflowId": "WF-BOT-5003",
+      "sequence": 11,
+      "actor": {
+        "id": "josh",
+        "displayName": "Josh Kirby",
+        "handle": "joshk132",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "review",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4303,
+        "title": "Review by Josh"
+      },
+      "payload": {
+        "review": {
+          "state": "approved",
+          "body": "Nice speedups; cache is working."
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5003-012",
+      "ts": "2025-08-16T13:51:00Z",
+      "provider": "github",
+      "type": "pr.review_submitted",
+      "workflowId": "WF-BOT-5003",
+      "sequence": 12,
+      "actor": {
+        "id": "riley",
+        "displayName": "Riley Tomasek",
+        "handle": "rileytomasek",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "review",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4303,
+        "title": "Review by Riley"
+      },
+      "payload": {
+        "review": {
+          "state": "approved",
+          "body": "Approved. Thanks for addressing the flake."
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5003-013",
+      "ts": "2025-08-16T13:52:05Z",
+      "provider": "github",
+      "type": "pr.merged",
+      "workflowId": "WF-BOT-5003",
+      "sequence": 13,
+      "actor": {
+        "id": "charliecreates[bot]",
+        "displayName": "charliecreates[bot]",
+        "handle": "charliecreates[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4303,
+        "title": "ci: parallelize lint/test & enable turbo cache",
+        "url": "https://github.com/charlie-labs/charlie/pull/4303"
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5003-014",
+      "ts": "2025-08-16T13:53:00Z",
+      "provider": "linear",
+      "type": "issue.status_changed",
+      "workflowId": "WF-BOT-5003",
+      "sequence": 14,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "charlie",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5003",
+        "key": "BOT-5003",
+        "title": "Infra: speed up CI (parallel lint/tests, cache)",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5003"
+      },
+      "payload": { "status": { "from": "Todo", "to": "Done" } }
+    },
+    {
+      "id": "evt-WF-BOT-5003-015",
+      "ts": "2025-08-16T13:53:10Z",
+      "provider": "linear",
+      "type": "issue.closed",
+      "workflowId": "WF-BOT-5003",
+      "sequence": 15,
+      "actor": {
+        "id": "josh",
+        "displayName": "Josh Kirby",
+        "handle": "joshk132",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5003",
+        "key": "BOT-5003",
+        "title": "Infra: speed up CI (parallel lint/tests, cache)",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5003"
+      }
+    },
+
+    {
+      "id": "evt-WF-BOT-5004-001",
+      "ts": "2025-08-18T09:20:00Z",
+      "provider": "linear",
+      "type": "issue.created",
+      "workflowId": "WF-BOT-5004",
+      "sequence": 1,
+      "actor": {
+        "id": "jerrod",
+        "displayName": "Jerrod Engelberg",
+        "handle": "jerrod-charlie",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5004",
+        "key": "BOT-5004",
+        "title": "Docs: onboarding updates and examples",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5004"
+      },
+      "payload": {
+        "description": "Refresh onboarding docs; add examples for new PR evaluation helpers and Service Devbox."
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5004-002",
+      "ts": "2025-08-18T09:22:10Z",
+      "provider": "linear",
+      "type": "issue.labeled",
+      "workflowId": "WF-BOT-5004",
+      "sequence": 2,
+      "actor": {
+        "id": "jerrod",
+        "displayName": "Jerrod Engelberg",
+        "handle": "jerrod-charlie",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5004",
+        "key": "BOT-5004",
+        "title": "Docs: onboarding updates and examples",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5004"
+      },
+      "payload": { "labelsAdded": ["docs", "p3"] }
+    },
+    {
+      "id": "evt-WF-BOT-5004-003",
+      "ts": "2025-08-18T09:23:00Z",
+      "provider": "linear",
+      "type": "issue.assigned",
+      "workflowId": "WF-BOT-5004",
+      "sequence": 3,
+      "actor": {
+        "id": "jerrod",
+        "displayName": "Jerrod Engelberg",
+        "handle": "jerrod-charlie",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5004",
+        "key": "BOT-5004",
+        "title": "Docs: onboarding updates and examples",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5004"
+      },
+      "payload": { "assigneesAdded": ["Charlie"] }
+    },
+    {
+      "id": "evt-WF-BOT-5004-004",
+      "ts": "2025-08-18T10:05:15Z",
+      "provider": "github",
+      "type": "pr.opened",
+      "workflowId": "WF-BOT-5004",
+      "sequence": 4,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "CharlieCreates",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4304,
+        "title": "docs: onboarding refresh + examples",
+        "url": "https://github.com/charlie-labs/charlie/pull/4304"
+      },
+      "payload": {
+        "branch": "docs/onboarding-refresh",
+        "description": "Docs updates for BOT-5004; adds examples for pr_evaluations helpers."
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5004-005",
+      "ts": "2025-08-18T10:05:30Z",
+      "provider": "linear",
+      "type": "issue.linked",
+      "workflowId": "WF-BOT-5004",
+      "sequence": 5,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "charlie",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5004",
+        "key": "BOT-5004",
+        "title": "Docs: onboarding updates and examples",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5004"
+      },
+      "payload": {
+        "link": {
+          "type": "github.pr",
+          "url": "https://github.com/charlie-labs/charlie/pull/4304",
+          "number": 4304,
+          "title": "docs: onboarding refresh + examples"
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5004-006",
+      "ts": "2025-08-18T10:06:00Z",
+      "provider": "github",
+      "type": "pr.labeled",
+      "workflowId": "WF-BOT-5004",
+      "sequence": 6,
+      "actor": {
+        "id": "charliecreates[bot]",
+        "displayName": "charliecreates[bot]",
+        "handle": "charliecreates[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4304,
+        "title": "docs: onboarding refresh + examples",
+        "url": "https://github.com/charlie-labs/charlie/pull/4304"
+      },
+      "payload": { "labelsAdded": ["docs"] }
+    },
+    {
+      "id": "evt-WF-BOT-5004-007",
+      "ts": "2025-08-18T10:06:40Z",
+      "provider": "github",
+      "type": "pr.review_requested",
+      "workflowId": "WF-BOT-5004",
+      "sequence": 7,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "CharlieCreates",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4304,
+        "title": "docs: onboarding refresh + examples",
+        "url": "https://github.com/charlie-labs/charlie/pull/4304"
+      },
+      "payload": { "reviewersAdded": ["jerrod-charlie"] }
+    },
+    {
+      "id": "evt-WF-BOT-5004-008",
+      "ts": "2025-08-18T10:09:20Z",
+      "provider": "github",
+      "type": "pr.review_submitted",
+      "workflowId": "WF-BOT-5004",
+      "sequence": 8,
+      "actor": {
+        "id": "jerrod",
+        "displayName": "Jerrod Engelberg",
+        "handle": "jerrod-charlie",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "review",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4304,
+        "title": "Review by Jerrod"
+      },
+      "payload": {
+        "review": {
+          "state": "approved",
+          "body": "Looks good; thanks for the examples."
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5004-009",
+      "ts": "2025-08-18T10:10:00Z",
+      "provider": "github",
+      "type": "pr.merged",
+      "workflowId": "WF-BOT-5004",
+      "sequence": 9,
+      "actor": {
+        "id": "charliecreates[bot]",
+        "displayName": "charliecreates[bot]",
+        "handle": "charliecreates[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4304,
+        "title": "docs: onboarding refresh + examples",
+        "url": "https://github.com/charlie-labs/charlie/pull/4304"
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5004-010",
+      "ts": "2025-08-18T10:11:00Z",
+      "provider": "linear",
+      "type": "issue.status_changed",
+      "workflowId": "WF-BOT-5004",
+      "sequence": 10,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "charlie",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5004",
+        "key": "BOT-5004",
+        "title": "Docs: onboarding updates and examples",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5004"
+      },
+      "payload": { "status": { "from": "Todo", "to": "Done" } }
+    },
+    {
+      "id": "evt-WF-BOT-5004-011",
+      "ts": "2025-08-18T10:11:15Z",
+      "provider": "linear",
+      "type": "issue.closed",
+      "workflowId": "WF-BOT-5004",
+      "sequence": 11,
+      "actor": {
+        "id": "jerrod",
+        "displayName": "Jerrod Engelberg",
+        "handle": "jerrod-charlie",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5004",
+        "key": "BOT-5004",
+        "title": "Docs: onboarding updates and examples",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5004"
+      }
+    },
+
+    {
+      "id": "evt-WF-BOT-5005-001",
+      "ts": "2025-08-20T08:30:00Z",
+      "provider": "linear",
+      "type": "issue.created",
+      "workflowId": "WF-BOT-5005",
+      "sequence": 1,
+      "actor": {
+        "id": "riley",
+        "displayName": "Riley Tomasek",
+        "handle": "rileytomasek",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5005",
+        "key": "BOT-5005",
+        "title": "Refactor: extract GitHub image URL signer",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5005"
+      },
+      "payload": {
+        "description": "Consolidate duplicate image URL signing logic in ai-agents and service-github into a shared helper with parallelization."
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5005-002",
+      "ts": "2025-08-20T08:31:00Z",
+      "provider": "linear",
+      "type": "issue.labeled",
+      "workflowId": "WF-BOT-5005",
+      "sequence": 2,
+      "actor": {
+        "id": "riley",
+        "displayName": "Riley Tomasek",
+        "handle": "rileytomasek",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5005",
+        "key": "BOT-5005",
+        "title": "Refactor: extract GitHub image URL signer",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5005"
+      },
+      "payload": { "labelsAdded": ["refactor", "p2"] }
+    },
+    {
+      "id": "evt-WF-BOT-5005-003",
+      "ts": "2025-08-20T08:32:00Z",
+      "provider": "linear",
+      "type": "issue.assigned",
+      "workflowId": "WF-BOT-5005",
+      "sequence": 3,
+      "actor": {
+        "id": "riley",
+        "displayName": "Riley Tomasek",
+        "handle": "rileytomasek",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5005",
+        "key": "BOT-5005",
+        "title": "Refactor: extract GitHub image URL signer",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5005"
+      },
+      "payload": { "assigneesAdded": ["Charlie"] }
+    },
+    {
+      "id": "evt-WF-BOT-5005-004",
+      "ts": "2025-08-20T09:10:45Z",
+      "provider": "github",
+      "type": "pr.opened",
+      "workflowId": "WF-BOT-5005",
+      "sequence": 4,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "CharlieCreates",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4305,
+        "title": "refactor(service-github): extract image URL signer; parallelize",
+        "url": "https://github.com/charlie-labs/charlie/pull/4305"
+      },
+      "payload": {
+        "branch": "refactor/image-url-signer",
+        "description": "Implements BOT-5005; extracts helper and adds Promise.allSettled parallelization."
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5005-005",
+      "ts": "2025-08-20T09:11:10Z",
+      "provider": "linear",
+      "type": "issue.linked",
+      "workflowId": "WF-BOT-5005",
+      "sequence": 5,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "charlie",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5005",
+        "key": "BOT-5005",
+        "title": "Refactor: extract GitHub image URL signer",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5005"
+      },
+      "payload": {
+        "link": {
+          "type": "github.pr",
+          "url": "https://github.com/charlie-labs/charlie/pull/4305",
+          "number": 4305,
+          "title": "refactor(service-github): extract image URL signer; parallelize"
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5005-006",
+      "ts": "2025-08-20T09:12:00Z",
+      "provider": "github",
+      "type": "pr.review_requested",
+      "workflowId": "WF-BOT-5005",
+      "sequence": 6,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "CharlieCreates",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4305,
+        "title": "refactor(service-github): extract image URL signer; parallelize",
+        "url": "https://github.com/charlie-labs/charlie/pull/4305"
+      },
+      "payload": { "reviewersAdded": ["rileytomasek", "brianbegy"] }
+    },
+    {
+      "id": "evt-WF-BOT-5005-007",
+      "ts": "2025-08-20T09:13:20Z",
+      "provider": "github",
+      "type": "pr.commented",
+      "workflowId": "WF-BOT-5005",
+      "sequence": 7,
+      "actor": {
+        "id": "riley",
+        "displayName": "Riley Tomasek",
+        "handle": "rileytomasek",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4305,
+        "title": "refactor(service-github): extract image URL signer; parallelize",
+        "url": "https://github.com/charlie-labs/charlie/pull/4305"
+      },
+      "payload": {
+        "text": "Can you keep order stable relative to input URLs? UI depends on it."
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5005-008",
+      "ts": "2025-08-20T09:20:00Z",
+      "provider": "github",
+      "type": "pr.commit_pushed",
+      "workflowId": "WF-BOT-5005",
+      "sequence": 8,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "CharlieCreates",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "commit",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "title": "feat: preserve order; settle promises"
+      },
+      "payload": {
+        "branch": "refactor/image-url-signer",
+        "commit": {
+          "sha": "f00ba7",
+          "message": "feat(service-github): preserve input order with Promise.allSettled",
+          "filesChanged": 6,
+          "additions": 120,
+          "deletions": 40
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5005-009",
+      "ts": "2025-08-20T09:25:30Z",
+      "provider": "github",
+      "type": "pr.review_submitted",
+      "workflowId": "WF-BOT-5005",
+      "sequence": 9,
+      "actor": {
+        "id": "brian",
+        "displayName": "Brian Begy",
+        "handle": "brianbegy",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "review",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4305,
+        "title": "Review by Brian"
+      },
+      "payload": {
+        "review": {
+          "state": "commented",
+          "body": "Nice refactor. Please add a unit test to assert order preservation."
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5005-010",
+      "ts": "2025-08-20T09:40:05Z",
+      "provider": "github",
+      "type": "pr.commit_pushed",
+      "workflowId": "WF-BOT-5005",
+      "sequence": 10,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "CharlieCreates",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "commit",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "title": "test: add order preservation unit test"
+      },
+      "payload": {
+        "branch": "refactor/image-url-signer",
+        "commit": {
+          "sha": "abc1234",
+          "message": "test(service-github): verify order preservation",
+          "filesChanged": 2,
+          "additions": 55,
+          "deletions": 0
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5005-011",
+      "ts": "2025-08-20T09:45:00Z",
+      "provider": "github",
+      "type": "ci.check_run",
+      "workflowId": "WF-BOT-5005",
+      "sequence": 11,
+      "actor": {
+        "id": "github-actions[bot]",
+        "displayName": "GitHub Actions",
+        "handle": "github-actions[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "check_run",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "title": "test"
+      },
+      "payload": {
+        "check": {
+          "name": "test",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5005-012",
+      "ts": "2025-08-20T09:47:10Z",
+      "provider": "github",
+      "type": "pr.review_submitted",
+      "workflowId": "WF-BOT-5005",
+      "sequence": 12,
+      "actor": {
+        "id": "riley",
+        "displayName": "Riley Tomasek",
+        "handle": "rileytomasek",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "review",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4305,
+        "title": "Review by Riley"
+      },
+      "payload": {
+        "review": { "state": "approved", "body": "Approved after tests." }
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5005-013",
+      "ts": "2025-08-20T09:48:00Z",
+      "provider": "github",
+      "type": "pr.merged",
+      "workflowId": "WF-BOT-5005",
+      "sequence": 13,
+      "actor": {
+        "id": "charliecreates[bot]",
+        "displayName": "charliecreates[bot]",
+        "handle": "charliecreates[bot]",
+        "type": "bot"
+      },
+      "entity": {
+        "kind": "pull_request",
+        "provider": "github",
+        "owner": "charlie-labs",
+        "repo": "charlie",
+        "number": 4305,
+        "title": "refactor(service-github): extract image URL signer; parallelize",
+        "url": "https://github.com/charlie-labs/charlie/pull/4305"
+      }
+    },
+    {
+      "id": "evt-WF-BOT-5005-014",
+      "ts": "2025-08-20T09:49:05Z",
+      "provider": "linear",
+      "type": "issue.status_changed",
+      "workflowId": "WF-BOT-5005",
+      "sequence": 14,
+      "actor": {
+        "id": "charlie",
+        "displayName": "Charlie",
+        "handle": "charlie",
+        "type": "charlie"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5005",
+        "key": "BOT-5005",
+        "title": "Refactor: extract GitHub image URL signer",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5005"
+      },
+      "payload": { "status": { "from": "In progress", "to": "Done" } }
+    },
+    {
+      "id": "evt-WF-BOT-5005-015",
+      "ts": "2025-08-20T09:49:20Z",
+      "provider": "linear",
+      "type": "issue.closed",
+      "workflowId": "WF-BOT-5005",
+      "sequence": 15,
+      "actor": {
+        "id": "riley",
+        "displayName": "Riley Tomasek",
+        "handle": "rileytomasek",
+        "type": "human"
+      },
+      "entity": {
+        "kind": "issue",
+        "provider": "linear",
+        "id": "lin_iss_5005",
+        "key": "BOT-5005",
+        "title": "Refactor: extract GitHub image URL signer",
+        "url": "https://linear.app/charlie-labs/issue/BOT-5005"
+      }
+    }
+  ]
+}
