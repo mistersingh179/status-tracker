@@ -16,9 +16,10 @@ import {
 
 const activityData = data as ActivityDataset;
 
-export default function WorkflowDetail({ params }: { params: { id: string } }) {
-  const workflow = activityData.workflows.find(w => w.id === params.id);
-  const events = activityData.events.filter(e => e.workflowId === params.id);
+export default async function WorkflowDetail({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const workflow = activityData.workflows.find(w => w.id === id);
+  const events = activityData.events.filter(e => e.workflowId === id);
   const workflowState = getWorkflowState(events);
   const priority = getPriorityFromEvents(events);
   const linearUrl = getLinearIssueUrl(workflow?.linearIssueKey);
@@ -79,7 +80,7 @@ export default function WorkflowDetail({ params }: { params: { id: string } }) {
 
   return (
     <div className="min-h-screen bg-background">
-      <div className="container mx-auto p-6 space-y-6">
+      <div className="container mx-auto p-4 lg:p-6 space-y-4 lg:space-y-6">
         <Button variant="ghost" asChild className="mb-4">
           <Link href="/">← Back to dashboard</Link>
         </Button>
@@ -87,23 +88,25 @@ export default function WorkflowDetail({ params }: { params: { id: string } }) {
         {/* Workflow Header */}
         <Card>
           <CardHeader>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
               <div className="space-y-2">
-                <div className="flex items-center gap-3">
-                  <CardTitle className="text-2xl">{workflow.name}</CardTitle>
-                  <Badge variant={getStateBadgeVariant(workflowState)}>
-                    {getStateLabel(workflowState)}
-                  </Badge>
-                  {priority && (
-                    <Badge variant={getPriorityBadgeVariant(priority)}>
-                      {priority.toUpperCase()}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+                  <CardTitle className="text-xl lg:text-2xl">{workflow.name}</CardTitle>
+                  <div className="flex gap-2">
+                    <Badge variant={getStateBadgeVariant(workflowState)} className="w-fit">
+                      {getStateLabel(workflowState)}
                     </Badge>
-                  )}
+                    {priority && (
+                      <Badge variant={getPriorityBadgeVariant(priority)} className="w-fit">
+                        {priority.toUpperCase()}
+                      </Badge>
+                    )}
+                  </div>
                 </div>
-                <CardDescription className="font-mono">{workflow.id}</CardDescription>
+                <CardDescription className="font-mono text-sm">{workflow.id}</CardDescription>
               </div>
               
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2">
                 {linearUrl && (
                   <Button asChild>
                     <a href={linearUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
@@ -138,27 +141,29 @@ export default function WorkflowDetail({ params }: { params: { id: string } }) {
           <CardContent className="space-y-4">
             {events.map((event, index) => (
               <div key={event.id}>
-                <div className="flex items-start gap-4">
-                  <div className="flex flex-col items-center">
+                <div className="flex items-start gap-2 lg:gap-4">
+                  <div className="flex flex-col items-center flex-shrink-0">
                     <Badge variant={getEventBadgeVariant(event.type)} className="text-xs">
-                      {formatEventType(event.type)}
+                      <span className="hidden sm:inline">{formatEventType(event.type)}</span>
+                      <span className="sm:hidden">•</span>
                     </Badge>
                     {index < events.length - 1 && (
-                      <div className="w-px h-8 bg-border mt-2"></div>
+                      <div className="w-px h-6 lg:h-8 bg-border mt-2"></div>
                     )}
                   </div>
                   
-                  <div className="flex-1 space-y-2">
-                    <div className="flex items-center justify-between">
+                  <div className="flex-1 min-w-0 space-y-2">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       <div className="flex items-center gap-2">
-                        <span className="font-medium">{event.actor.displayName}</span>
+                        <span className="font-medium text-sm">{event.actor.displayName}</span>
                         {event.actor.type !== 'human' && (
                           <Badge variant="outline" className="text-xs">
                             {event.actor.type}
                           </Badge>
                         )}
                       </div>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-2 text-xs lg:text-sm text-muted-foreground">
+                        <span className="sm:hidden">{formatEventType(event.type)}</span>
                         <span>{formatTimestamp(event.ts)}</span>
                         <Badge variant="outline" className="text-xs">
                           #{event.sequence}
@@ -194,9 +199,9 @@ export default function WorkflowDetail({ params }: { params: { id: string } }) {
                         )}
                         {event.payload.commit && (
                           <div className="bg-muted p-3 rounded-md">
-                            <p className="font-mono text-xs mb-1">
+                            <p className="font-mono text-xs mb-1 break-words">
                               <Badge variant="outline" className="mr-2">{event.payload.commit.sha.substring(0, 7)}</Badge>
-                              {event.payload.commit.message}
+                              <span className="break-words">{event.payload.commit.message}</span>
                             </p>
                             {event.payload.commit.filesChanged && (
                               <p className="text-xs text-muted-foreground">
