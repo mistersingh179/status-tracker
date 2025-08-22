@@ -282,3 +282,48 @@ export function getGitHubPRUrl(events: ActivityEvent[]): string | null {
   );
   return prEvent?.entity.url || null;
 }
+
+export type DateRange = '1day' | '7days' | '1month' | 'all';
+
+export function getDateRangeLabel(range: DateRange): string {
+  switch (range) {
+    case '1day':
+      return 'Last 24 hours';
+    case '7days':
+      return 'Last 7 days';
+    case '1month':
+      return 'Last month';
+    case 'all':
+      return 'All time';
+  }
+}
+
+export function getWorkflowCreationDate(events: ActivityEvent[]): Date | null {
+  // Find the first issue.created event which represents when the workflow started
+  const creationEvent = events
+    .filter(e => e.type === 'issue.created')
+    .sort((a, b) => a.sequence - b.sequence)[0];
+  
+  return creationEvent ? new Date(creationEvent.ts) : null;
+}
+
+export function isWorkflowInDateRange(events: ActivityEvent[], dateRange: DateRange): boolean {
+  if (dateRange === 'all') return true;
+  
+  const creationDate = getWorkflowCreationDate(events);
+  if (!creationDate) return true; // Include workflows without clear creation date
+  
+  const now = new Date();
+  const msPerDay = 24 * 60 * 60 * 1000;
+  
+  switch (dateRange) {
+    case '1day':
+      return (now.getTime() - creationDate.getTime()) <= msPerDay;
+    case '7days':
+      return (now.getTime() - creationDate.getTime()) <= (7 * msPerDay);
+    case '1month':
+      return (now.getTime() - creationDate.getTime()) <= (30 * msPerDay);
+    default:
+      return true;
+  }
+}

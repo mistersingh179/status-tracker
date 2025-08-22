@@ -15,38 +15,46 @@ import {
   getPriorityColor,
   getTimeSinceLastActivity,
   getLinearIssueUrl,
-  getGitHubPRUrl
+  getGitHubPRUrl,
+  DateRange,
+  getDateRangeLabel,
+  isWorkflowInDateRange
 } from './utils/workflow-state';
 
 const activityData = data as ActivityDataset;
 
 export default function WorkflowsDashboard() {
   const [filterState, setFilterState] = useState<WorkflowState | 'all'>('needs_user_input');
+  const [dateRange, setDateRange] = useState<DateRange>('1month');
 
   const workflowsWithState = useMemo(() => {
-    return activityData.workflows.map(workflow => {
-      const workflowEvents = activityData.events.filter(e => e.workflowId === workflow.id);
-      const { state, reason } = getWorkflowStateWithReason(workflowEvents);
-      const lastEvent = workflowEvents.sort((a, b) => b.sequence - a.sequence)[0];
-      const priority = getPriorityFromEvents(workflowEvents);
-      const linearUrl = getLinearIssueUrl(workflow.linearIssueKey);
-      const githubUrl = getGitHubPRUrl(workflowEvents);
-      
-      return {
-        ...workflow,
-        state,
-        stateReason: reason,
-        lastEvent,
-        priority,
-        linearUrl,
-        githubUrl
-      } as WorkflowWithState & { 
-        priority: string | null;
-        linearUrl: string | null;
-        githubUrl: string | null;
-      };
-    });
-  }, []);
+    return activityData.workflows
+      .map(workflow => {
+        const workflowEvents = activityData.events.filter(e => e.workflowId === workflow.id);
+        const { state, reason } = getWorkflowStateWithReason(workflowEvents);
+        const lastEvent = workflowEvents.sort((a, b) => b.sequence - a.sequence)[0];
+        const priority = getPriorityFromEvents(workflowEvents);
+        const linearUrl = getLinearIssueUrl(workflow.linearIssueKey);
+        const githubUrl = getGitHubPRUrl(workflowEvents);
+        
+        return {
+          ...workflow,
+          state,
+          stateReason: reason,
+          lastEvent,
+          priority,
+          linearUrl,
+          githubUrl,
+          events: workflowEvents
+        } as WorkflowWithState & { 
+          priority: string | null;
+          linearUrl: string | null;
+          githubUrl: string | null;
+          events: typeof workflowEvents;
+        };
+      })
+      .filter(workflow => isWorkflowInDateRange(workflow.events, dateRange));
+  }, [dateRange]);
 
   const filteredWorkflows = useMemo(() => {
     if (filterState === 'all') {
@@ -74,6 +82,35 @@ export default function WorkflowsDashboard() {
           <p className="text-body text-slate-600 dark:text-slate-400">
             Track Charlie development progress and manage workflows requiring your attention
           </p>
+        </div>
+        
+        {/* Date Range Filter */}
+        <div className="mb-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-heading text-lg text-slate-900 dark:text-slate-100 mb-1">
+                Time Range
+              </h2>
+              <p className="text-body text-sm text-slate-600 dark:text-slate-400">
+                Filter workflows by creation date
+              </p>
+            </div>
+            <div className="flex bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-1">
+              {(['1day', '7days', '1month', 'all'] as DateRange[]).map((range) => (
+                <button
+                  key={range}
+                  onClick={() => setDateRange(range)}
+                  className={`px-3 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                    dateRange === range
+                      ? 'bg-slate-100 text-slate-900 shadow-sm dark:bg-slate-700 dark:text-slate-100'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-700/50'
+                  }`}
+                >
+                  {getDateRangeLabel(range)}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
         
         {/* Filter tabs */}
