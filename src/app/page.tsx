@@ -4,6 +4,13 @@ import { useState, useMemo } from 'react';
 import data from './data.json';
 import { ActivityDataset } from './schema';
 import Link from 'next/link';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Separator } from '@/components/ui/separator';
 import { 
   getWorkflowStateWithReason,
   getStateLabel, 
@@ -72,269 +79,212 @@ export default function WorkflowsDashboard() {
     };
   }, [workflowsWithState]);
 
+  const getStateBadgeVariant = (state: WorkflowState) => {
+    switch (state) {
+      case 'needs_user_input': return 'destructive';
+      case 'charlie_working': return 'default';
+      case 'completed': return 'outline';
+      default: return 'secondary';
+    }
+  };
+
+  const getPriorityBadgeVariant = (priority: string | null) => {
+    switch (priority) {
+      case 'p1': return 'destructive';
+      case 'p2': return 'default';
+      case 'p3': return 'secondary';
+      default: return 'outline';
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h1 className="text-display text-4xl text-slate-900 dark:text-slate-100 mb-2">
-            Workflow Dashboard
-          </h1>
-          <p className="text-body text-slate-600 dark:text-slate-400">
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto p-6 space-y-6">
+        {/* Header */}
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold tracking-tight">Workflow Dashboard</h1>
+          <p className="text-muted-foreground">
             Track Charlie development progress and manage workflows requiring your attention
           </p>
         </div>
-        
+
         {/* Date Range Filter */}
-        <div className="mb-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-heading text-lg text-slate-900 dark:text-slate-100 mb-1">
-                Time Range
-              </h2>
-              <p className="text-body text-sm text-slate-600 dark:text-slate-400">
-                Filter workflows by creation date
-              </p>
-            </div>
-            <div className="flex bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 p-1">
-              {(['1day', '7days', '1month', 'all'] as DateRange[]).map((range) => (
-                <button
-                  key={range}
-                  onClick={() => setDateRange(range)}
-                  className={`px-3 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
-                    dateRange === range
-                      ? 'bg-slate-100 text-slate-900 shadow-sm dark:bg-slate-700 dark:text-slate-100'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-700/50'
-                  }`}
-                >
-                  {getDateRangeLabel(range)}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-        
-        {/* Filter tabs */}
-        <div className="mb-8">
-          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-1">
-            <nav className="flex space-x-1" aria-label="Tabs">
-              <button
-                onClick={() => setFilterState('needs_user_input')}
-                className={`flex-1 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-200 ${
-                  filterState === 'needs_user_input'
-                    ? 'bg-amber-100 text-amber-900 shadow-sm dark:bg-amber-900/30 dark:text-amber-100'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-700'
-                }`}
-              >
-                <span className="flex items-center justify-center gap-2">
-                  <span className="text-base">🔍</span>
-                  <span>Needs Your Input</span>
-                  <span className="ml-1 px-2 py-0.5 bg-white/60 dark:bg-slate-800/60 rounded-full text-xs font-semibold">
-                    {stateCounts.needs_user_input}
-                  </span>
-                </span>
-              </button>
-              <button
-                onClick={() => setFilterState('charlie_working')}
-                className={`flex-1 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-200 ${
-                  filterState === 'charlie_working'
-                    ? 'bg-blue-100 text-blue-900 shadow-sm dark:bg-blue-900/30 dark:text-blue-100'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-700'
-                }`}
-              >
-                <span className="flex items-center justify-center gap-2">
-                  <span className="text-base">🤖</span>
-                  <span>Charlie Working</span>
-                  <span className="ml-1 px-2 py-0.5 bg-white/60 dark:bg-slate-800/60 rounded-full text-xs font-semibold">
-                    {stateCounts.charlie_working}
-                  </span>
-                </span>
-              </button>
-              <button
-                onClick={() => setFilterState('completed')}
-                className={`flex-1 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-200 ${
-                  filterState === 'completed'
-                    ? 'bg-green-100 text-green-900 shadow-sm dark:bg-green-900/30 dark:text-green-100'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-700'
-                }`}
-              >
-                <span className="flex items-center justify-center gap-2">
-                  <span className="text-base">✅</span>
-                  <span>Completed</span>
-                  <span className="ml-1 px-2 py-0.5 bg-white/60 dark:bg-slate-800/60 rounded-full text-xs font-semibold">
-                    {stateCounts.completed}
-                  </span>
-                </span>
-              </button>
-              <button
-                onClick={() => setFilterState('all')}
-                className={`flex-1 rounded-lg px-4 py-3 text-sm font-medium transition-all duration-200 ${
-                  filterState === 'all'
-                    ? 'bg-slate-100 text-slate-900 shadow-sm dark:bg-slate-700 dark:text-slate-100'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-slate-100 dark:hover:bg-slate-700'
-                }`}
-              >
-                <span className="flex items-center justify-center gap-2">
-                  <span className="text-base">📋</span>
-                  <span>All Workflows</span>
-                  <span className="ml-1 px-2 py-0.5 bg-white/60 dark:bg-slate-800/60 rounded-full text-xs font-semibold">
-                    {stateCounts.all}
-                  </span>
-                </span>
-              </button>
-            </nav>
-          </div>
-          
-          {/* Active tab description */}
-          <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 mt-0.5">
-                <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-sm font-semibold text-blue-900 dark:text-blue-100 mb-1">
+                <CardTitle className="text-lg">Time Range</CardTitle>
+                <CardDescription>Filter workflows by creation date</CardDescription>
+              </div>
+              <Select value={dateRange} onValueChange={(value: DateRange) => setDateRange(value)}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1day">Last 24 hours</SelectItem>
+                  <SelectItem value="7days">Last 7 days</SelectItem>
+                  <SelectItem value="1month">Last month</SelectItem>
+                  <SelectItem value="all">All time</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </CardHeader>
+        </Card>
+
+        {/* State Tabs */}
+        <Tabs value={filterState} onValueChange={(value) => setFilterState(value as WorkflowState | 'all')}>
+          <TabsList className="grid w-full grid-cols-4 h-14">
+            <TabsTrigger value="needs_user_input" className="flex items-center gap-2 h-12 px-6">
+              🔍 Needs Input
+              <Badge variant="secondary" className="ml-1">
+                {stateCounts.needs_user_input}
+              </Badge>
+            </TabsTrigger>
+            <TabsTrigger value="charlie_working" className="flex items-center gap-2 h-12 px-6">
+              🤖 Charlie Working
+              <Badge variant="secondary" className="ml-1">
+                {stateCounts.charlie_working}
+              </Badge>
+            </TabsTrigger>
+            <TabsTrigger value="completed" className="flex items-center gap-2 h-12 px-6">
+              ✅ Completed
+              <Badge variant="secondary" className="ml-1">
+                {stateCounts.completed}
+              </Badge>
+            </TabsTrigger>
+            <TabsTrigger value="all" className="flex items-center gap-2 h-12 px-6">
+              📋 All Workflows
+              <Badge variant="secondary" className="ml-1">
+                {stateCounts.all}
+              </Badge>
+            </TabsTrigger>
+          </TabsList>
+
+          {/* Tab Content with Description */}
+          <TabsContent value={filterState} className="mt-4">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                   {filterState === 'needs_user_input' && 'Needs Your Input'}
                   {filterState === 'charlie_working' && 'Charlie Working'}
                   {filterState === 'completed' && 'Completed'}
                   {filterState === 'all' && 'All Workflows'}
-                </h3>
-                <p className="text-sm text-blue-700 dark:text-blue-200">
+                </CardTitle>
+                <CardDescription>
                   {filterState === 'needs_user_input' && getStateTooltip('needs_user_input')}
                   {filterState === 'charlie_working' && getStateTooltip('charlie_working')}
                   {filterState === 'completed' && getStateTooltip('completed')}
                   {filterState === 'all' && 'View all workflows regardless of status'}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
-          <table className="min-w-full">
-            <thead>
-              <tr className="border-b border-slate-200 dark:border-slate-700">
-                <th className="px-6 py-4 text-left text-caption text-slate-500 dark:text-slate-400 font-semibold">
-                  Status
-                </th>
-                <th className="px-6 py-4 text-left text-caption text-slate-500 dark:text-slate-400 font-semibold">
-                  Priority
-                </th>
-                <th className="px-6 py-4 text-left text-caption text-slate-500 dark:text-slate-400 font-semibold">
-                  Workflow
-                </th>
-                <th className="px-6 py-4 text-left text-caption text-slate-500 dark:text-slate-400 font-semibold">
-                  Links
-                </th>
-                <th className="px-6 py-4 text-left text-caption text-slate-500 dark:text-slate-400 font-semibold">
-                  Activity
-                </th>
-                <th className="px-6 py-4 text-left text-caption text-slate-500 dark:text-slate-400 font-semibold">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
-              {filteredWorkflows.map((workflow) => (
-                <tr key={workflow.id} className="group hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors duration-150">
-                  <td className="px-6 py-5">
-                    <span className={`inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-full ${getStateColor(workflow.state)}`}>
-                      <span className="text-sm">
-                        {workflow.state === 'needs_user_input' ? '🔍' : workflow.state === 'charlie_working' ? '🤖' : '✅'}
-                      </span>
-                      {getStateLabel(workflow.state)}
-                    </span>
-                  </td>
-                  <td className="px-6 py-5">
-                    {workflow.priority ? (
-                      <span className={`inline-flex px-3 py-1.5 text-xs font-medium rounded-full ${getPriorityColor(workflow.priority)}`}>
-                        {workflow.priority.toUpperCase()}
-                      </span>
-                    ) : (
-                      <span className="text-slate-400 text-xs">—</span>
-                    )}
-                  </td>
-                  <td className="px-6 py-5">
-                    <div className="max-w-sm">
-                      <div className="text-heading text-sm text-slate-900 dark:text-slate-100 mb-1">
-                        {workflow.name}
-                      </div>
-                      <div className="text-xs text-slate-500 dark:text-slate-400 font-mono">
-                        {workflow.id}
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-6 py-5">
-                    <div className="flex flex-col gap-2">
-                      {workflow.linearUrl && (
-                        <a 
-                          href={workflow.linearUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs font-medium text-purple-600 hover:text-purple-700 dark:text-purple-400 dark:hover:text-purple-300 transition-colors"
-                        >
-                          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                          </svg>
-                          {workflow.linearIssueKey}
-                        </a>
-                      )}
-                      {workflow.githubUrl && (
-                        <a 
-                          href={workflow.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs font-medium text-slate-600 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 transition-colors"
-                        >
-                          <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                          </svg>
-                          PR #{workflow.github?.prNumber}
-                        </a>
-                      )}
-                    </div>
-                  </td>
-                  <td className="px-6 py-5">
-                    {workflow.stateReason && (
-                      <div className="max-w-xs">
-                        <div className="text-body text-sm text-slate-700 dark:text-slate-300 mb-1">
-                          {workflow.stateReason}
-                        </div>
-                        <div className="text-xs text-slate-500 dark:text-slate-400">
-                          {getTimeSinceLastActivity(workflow.lastEvent)}
-                        </div>
-                      </div>
-                    )}
-                  </td>
-                  <td className="px-6 py-5">
-                    <Link 
-                      href={`/workflow/${workflow.id}`}
-                      className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 dark:text-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 rounded-lg transition-colors duration-150"
-                    >
-                      View Details
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </CardDescription>
+              </CardHeader>
+            </Card>
+          </TabsContent>
+        </Tabs>
+
+        {/* Workflows Table */}
+        <Card>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Status</TableHead>
+                <TableHead>Priority</TableHead>
+                <TableHead>Workflow</TableHead>
+                <TableHead>Links</TableHead>
+                <TableHead>Activity</TableHead>
+                <TableHead>Actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filteredWorkflows.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={6} className="text-center py-12">
+                    <div className="text-muted-foreground">
+                      <svg className="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                       </svg>
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          
-          {filteredWorkflows.length === 0 && (
-            <div className="text-center py-12">
-              <div className="text-slate-400 dark:text-slate-500 mb-2">
-                <svg className="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
-              </div>
-              <p className="text-slate-500 dark:text-slate-400 text-sm">
-                No workflows in this state
-              </p>
-            </div>
-          )}
-        </div>
+                      <p>No workflows in this state</p>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ) : (
+                filteredWorkflows.map((workflow) => (
+                  <TableRow key={workflow.id}>
+                    <TableCell>
+                      <Badge variant={getStateBadgeVariant(workflow.state)} className="flex items-center gap-1 w-fit">
+                        <span>
+                          {workflow.state === 'needs_user_input' ? '🔍' : workflow.state === 'charlie_working' ? '🤖' : '✅'}
+                        </span>
+                        {getStateLabel(workflow.state)}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      {workflow.priority ? (
+                        <Badge variant={getPriorityBadgeVariant(workflow.priority)}>
+                          {workflow.priority.toUpperCase()}
+                        </Badge>
+                      ) : (
+                        <span className="text-muted-foreground text-sm">—</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      <div className="space-y-1">
+                        <div className="font-medium">{workflow.name}</div>
+                        <div className="text-sm text-muted-foreground font-mono">{workflow.id}</div>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex flex-col gap-2">
+                        {workflow.linearUrl && (
+                          <Button variant="outline" size="sm" asChild>
+                            <a href={workflow.linearUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
+                              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                              </svg>
+                              {workflow.linearIssueKey}
+                            </a>
+                          </Button>
+                        )}
+                        {workflow.githubUrl && (
+                          <Button variant="outline" size="sm" asChild>
+                            <a href={workflow.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1">
+                              <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                              </svg>
+                              PR #{workflow.github?.prNumber}
+                            </a>
+                          </Button>
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      {workflow.stateReason && (
+                        <div className="space-y-1">
+                          <div className="text-sm">{workflow.stateReason}</div>
+                          <div className="text-xs text-muted-foreground">
+                            {getTimeSinceLastActivity(workflow.lastEvent)}
+                          </div>
+                        </div>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      <Button variant="ghost" size="sm" asChild>
+                        <Link href={`/workflow/${workflow.id}`} className="flex items-center gap-2">
+                          View Details
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </Link>
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </Card>
       </div>
     </div>
   );
