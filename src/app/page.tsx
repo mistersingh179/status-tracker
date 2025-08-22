@@ -7,13 +7,12 @@ import Link from 'next/link';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { 
   getWorkflowStateWithReason,
   getStateLabel, 
-  getStateTooltip,
   WorkflowState, 
   WorkflowWithState,
   getPriorityFromEvents,
@@ -105,83 +104,117 @@ export default function WorkflowsDashboard() {
         </div>
 
         {/* Date Range Filter */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-lg font-semibold">Time Range</h2>
+            <p className="text-sm text-muted-foreground">Filter workflows by creation date</p>
+          </div>
+          <Select value={dateRange} onValueChange={(value: DateRange) => setDateRange(value)}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="1day">Last 24 hours</SelectItem>
+              <SelectItem value="7days">Last 7 days</SelectItem>
+              <SelectItem value="1month">Last month</SelectItem>
+              <SelectItem value="all">All time</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Hero Metrics */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="relative overflow-hidden">
+            <CardHeader className="pb-2">
+              <CardDescription className="flex items-center gap-2">
+                <span className="text-2xl">⚠️</span>
+                Needs Your Input
+              </CardDescription>
+            </CardHeader>
+            <div className="px-6 pb-6">
+              <div className="text-4xl font-bold text-red-600 dark:text-red-400">
+                {stateCounts.needs_user_input}
+              </div>
+              <p className="text-sm text-muted-foreground mt-1">
+                Workflows requiring attention or review
+              </p>
+            </div>
+            <div className="absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 bg-red-100 dark:bg-red-900/20 rounded-full opacity-20"></div>
+          </Card>
+
+          <Card className="relative overflow-hidden">
+            <CardHeader className="pb-2">
+              <CardDescription className="flex items-center gap-2">
+                <span className="text-2xl">🤖</span>
+                Charlie Working
+              </CardDescription>
+            </CardHeader>
+            <div className="px-6 pb-6">
+              <div className="text-4xl font-bold text-slate-700 dark:text-slate-300">
+                {stateCounts.charlie_working}
+              </div>
+              <p className="text-sm text-muted-foreground mt-1">
+                Active development in progress
+              </p>
+            </div>
+            <div className="absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 bg-slate-100 dark:bg-slate-800/40 rounded-full opacity-20"></div>
+          </Card>
+
+          <Card className="relative overflow-hidden">
+            <CardHeader className="pb-2">
+              <CardDescription className="flex items-center gap-2">
+                <span className="text-2xl">✅</span>
+                Completed
+              </CardDescription>
+            </CardHeader>
+            <div className="px-6 pb-6">
+              <div className="text-4xl font-bold text-slate-600 dark:text-slate-400">
+                {stateCounts.completed}
+              </div>
+              <p className="text-sm text-muted-foreground mt-1">
+                Finished and merged workflows
+              </p>
+            </div>
+            <div className="absolute top-0 right-0 w-24 h-24 -mr-8 -mt-8 bg-slate-100 dark:bg-slate-800/40 rounded-full opacity-20"></div>
+          </Card>
+        </div>
+
+        {/* Workflow Details */}
         <Card>
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle className="text-lg">Time Range</CardTitle>
-                <CardDescription>Filter workflows by creation date</CardDescription>
-              </div>
-              <Select value={dateRange} onValueChange={(value: DateRange) => setDateRange(value)}>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="1day">Last 24 hours</SelectItem>
-                  <SelectItem value="7days">Last 7 days</SelectItem>
-                  <SelectItem value="1month">Last month</SelectItem>
-                  <SelectItem value="all">All time</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </CardHeader>
-        </Card>
-
-        {/* State Tabs */}
-        <Tabs value={filterState} onValueChange={(value) => setFilterState(value as WorkflowState | 'all')}>
-          <TabsList className="grid w-full grid-cols-4 h-14">
-            <TabsTrigger value="needs_user_input" className="flex items-center gap-2 h-12 px-6">
-              🔍 Needs Input
-              <Badge variant="secondary" className="ml-1">
-                {stateCounts.needs_user_input}
-              </Badge>
-            </TabsTrigger>
-            <TabsTrigger value="charlie_working" className="flex items-center gap-2 h-12 px-6">
-              🤖 Charlie Working
-              <Badge variant="secondary" className="ml-1">
-                {stateCounts.charlie_working}
-              </Badge>
-            </TabsTrigger>
-            <TabsTrigger value="completed" className="flex items-center gap-2 h-12 px-6">
-              ✅ Completed
-              <Badge variant="secondary" className="ml-1">
-                {stateCounts.completed}
-              </Badge>
-            </TabsTrigger>
-            <TabsTrigger value="all" className="flex items-center gap-2 h-12 px-6">
-              📋 All Workflows
-              <Badge variant="secondary" className="ml-1">
-                {stateCounts.all}
-              </Badge>
-            </TabsTrigger>
-          </TabsList>
-
-          {/* Tab Content with Description */}
-          <TabsContent value={filterState} className="mt-4">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  {filterState === 'needs_user_input' && 'Needs Your Input'}
-                  {filterState === 'charlie_working' && 'Charlie Working'}
-                  {filterState === 'completed' && 'Completed'}
+                <CardTitle>
+                  {filterState === 'needs_user_input' && 'Workflows Requiring Your Attention'}
+                  {filterState === 'charlie_working' && 'Active Development Work'}
+                  {filterState === 'completed' && 'Completed Workflows'}
                   {filterState === 'all' && 'All Workflows'}
                 </CardTitle>
                 <CardDescription>
-                  {filterState === 'needs_user_input' && getStateTooltip('needs_user_input')}
-                  {filterState === 'charlie_working' && getStateTooltip('charlie_working')}
-                  {filterState === 'completed' && getStateTooltip('completed')}
-                  {filterState === 'all' && 'View all workflows regardless of status'}
+                  {filterState === 'needs_user_input' && 'These workflows need your review, approval, or have been stalled for 48+ hours and may need assistance'}
+                  {filterState === 'charlie_working' && 'Charlie is actively developing these features - no action needed from you right now'}
+                  {filterState === 'completed' && 'Successfully finished workflows that have been merged and closed'}
+                  {filterState === 'all' && 'Complete list of all workflows across all states within the selected time range'}
                 </CardDescription>
-              </CardHeader>
-            </Card>
-          </TabsContent>
-        </Tabs>
-
-        {/* Workflows Table */}
-        <Card>
+              </div>
+              <Tabs value={filterState} onValueChange={(value) => setFilterState(value as WorkflowState | 'all')}>
+                <TabsList className="h-11">
+                  <TabsTrigger value="needs_user_input" className="px-6 py-2.5 text-sm font-medium">
+                    Needs Input
+                  </TabsTrigger>
+                  <TabsTrigger value="charlie_working" className="px-6 py-2.5 text-sm font-medium">
+                    Charlie Working
+                  </TabsTrigger>
+                  <TabsTrigger value="completed" className="px-6 py-2.5 text-sm font-medium">
+                    Completed
+                  </TabsTrigger>
+                  <TabsTrigger value="all" className="px-6 py-2.5 text-sm font-medium">
+                    All
+                  </TabsTrigger>
+                </TabsList>
+              </Tabs>
+            </div>
+          </CardHeader>
           <Table>
             <TableHeader>
               <TableRow>
