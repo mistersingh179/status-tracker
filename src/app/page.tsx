@@ -4,27 +4,23 @@ import { useState, useMemo } from 'react';
 import data from './data.json';
 import { ActivityDataset } from './schema';
 import Link from 'next/link';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Separator } from '@/components/ui/separator';
 import { 
   getWorkflowStateWithReason,
   getStateLabel, 
-  getStateColor,
   getStateTooltip,
   WorkflowState, 
   WorkflowWithState,
   getPriorityFromEvents,
-  getPriorityColor,
   getTimeSinceLastActivity,
   getLinearIssueUrl,
   getGitHubPRUrl,
   DateRange,
-  getDateRangeLabel,
   isWorkflowInDateRange
 } from './utils/workflow-state';
 

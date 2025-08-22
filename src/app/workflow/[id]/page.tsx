@@ -8,11 +8,10 @@ import { Separator } from '@/components/ui/separator';
 import { 
   getWorkflowState, 
   getStateLabel, 
-  getStateColor,
   getPriorityFromEvents,
-  getPriorityColor,
   getLinearIssueUrl,
-  getGitHubPRUrl
+  getGitHubPRUrl,
+  WorkflowState
 } from '../../utils/workflow-state';
 
 const activityData = data as ActivityDataset;
@@ -32,7 +31,7 @@ export default function WorkflowDetail({ params }: { params: { id: string } }) {
           <Card>
             <CardHeader>
               <CardTitle>Workflow not found</CardTitle>
-              <CardDescription>The workflow you're looking for doesn't exist.</CardDescription>
+              <CardDescription>The workflow you&apos;re looking for doesn&apos;t exist.</CardDescription>
             </CardHeader>
             <CardContent>
               <Button asChild>
@@ -60,7 +59,7 @@ export default function WorkflowDetail({ params }: { params: { id: string } }) {
     return 'secondary';
   };
 
-  const getStateBadgeVariant = (state: any) => {
+  const getStateBadgeVariant = (state: WorkflowState) => {
     switch (state) {
       case 'needs_user_input': return 'destructive';
       case 'charlie_working': return 'default';
@@ -191,7 +190,7 @@ export default function WorkflowDetail({ params }: { params: { id: string } }) {
                         )}
                         {event.payload.review && (
                           <p>Review: <Badge variant="outline" className="ml-1">{event.payload.review.state.replace(/_/g, ' ')}</Badge> 
-                          {event.payload.review.body && <span className="ml-2 italic">"{event.payload.review.body}"</span>}</p>
+                          {event.payload.review.body && <span className="ml-2 italic">&quot;{event.payload.review.body}&quot;</span>}</p>
                         )}
                         {event.payload.commit && (
                           <div className="bg-muted p-3 rounded-md">
