@@ -1,5 +1,5 @@
 import data from '../../data.json';
-import { ActivityDataset, ActivityEvent } from '../../schema';
+import { ActivityDataset } from '../../schema';
 import Link from 'next/link';
 import { 
   getWorkflowState, 
@@ -156,7 +156,7 @@ export default function WorkflowDetail({ params }: { params: { id: string } }) {
                       
                       {event.payload && (
                         <div className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                          {event.payload.text && <p>"{event.payload.text}"</p>}
+                          {event.payload.text && <p>{event.payload.text}</p>}
                           {event.payload.description && <p>{event.payload.description}</p>}
                           {event.payload.status && (
                             <p>Status: {event.payload.status.from || 'New'} → {event.payload.status.to}</p>
@@ -171,7 +171,7 @@ export default function WorkflowDetail({ params }: { params: { id: string } }) {
                             <p>Review requested: {event.payload.reviewersAdded.join(', ')}</p>
                           )}
                           {event.payload.review && (
-                            <p>Review: {event.payload.review.state.replace(/_/g, ' ')} {event.payload.review.body && `- "${event.payload.review.body}"`}</p>
+                            <p>Review: {event.payload.review.state.replace(/_/g, ' ')} {event.payload.review.body && `- ${event.payload.review.body}`}</p>
                           )}
                           {event.payload.commit && (
                             <div>

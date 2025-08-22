@@ -5,7 +5,6 @@ import data from './data.json';
 import { ActivityDataset } from './schema';
 import Link from 'next/link';
 import { 
-  getWorkflowState, 
   getWorkflowStateWithReason,
   getStateLabel, 
   getStateColor,
