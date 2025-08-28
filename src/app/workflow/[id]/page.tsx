@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import { 
   getWorkflowState, 
   getStateLabel, 
@@ -13,6 +12,7 @@ import {
   getGitHubPRUrl,
   WorkflowState
 } from '../../utils/workflow-state';
+import { TimelineCard } from './timeline-card';
 
 const activityData = data as ActivityDataset;
 
@@ -44,21 +44,6 @@ export default async function WorkflowDetail({ params }: { params: Promise<{ id:
       </div>
     );
   }
-
-  const formatEventType = (type: string) => {
-    return type.replace(/\./g, ' ').replace(/_/g, ' ').toUpperCase();
-  };
-
-  const formatTimestamp = (ts: string) => {
-    return new Date(ts).toLocaleString();
-  };
-
-  const getEventBadgeVariant = (type: string) => {
-    if (type.startsWith('issue')) return 'secondary';
-    if (type.startsWith('pr')) return 'default';
-    if (type.startsWith('ci')) return 'outline';
-    return 'secondary';
-  };
 
   const getStateBadgeVariant = (state: WorkflowState) => {
     switch (state) {
@@ -133,106 +118,7 @@ export default async function WorkflowDetail({ params }: { params: Promise<{ id:
         </Card>
 
         {/* Events Timeline */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Activity Timeline ({events.length} events)</CardTitle>
-            <CardDescription>Chronological history of all workflow events</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {events.map((event, index) => (
-              <div key={event.id}>
-                <div className="flex items-start gap-2 lg:gap-4">
-                  <div className="flex flex-col items-center flex-shrink-0">
-                    <Badge variant={getEventBadgeVariant(event.type)} className="text-xs">
-                      <span className="hidden sm:inline">{formatEventType(event.type)}</span>
-                      <span className="sm:hidden">•</span>
-                    </Badge>
-                    {index < events.length - 1 && (
-                      <div className="w-px h-6 lg:h-8 bg-border mt-2"></div>
-                    )}
-                  </div>
-                  
-                  <div className="flex-1 min-w-0 space-y-2">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                      <div className="flex items-center gap-2">
-                        <span className="font-medium text-sm">{event.actor.displayName}</span>
-                        {event.actor.type !== 'human' && (
-                          <Badge variant="outline" className="text-xs">
-                            {event.actor.type}
-                          </Badge>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-2 text-xs lg:text-sm text-muted-foreground">
-                        <span className="sm:hidden">{formatEventType(event.type)}</span>
-                        <span>{formatTimestamp(event.ts)}</span>
-                        <Badge variant="outline" className="text-xs">
-                          #{event.sequence}
-                        </Badge>
-                      </div>
-                    </div>
-                    
-                    {event.entity.title && (
-                      <p className="text-sm text-muted-foreground">{event.entity.title}</p>
-                    )}
-                    
-                    {event.payload && (
-                      <div className="text-sm space-y-1">
-                        {event.payload.text && <p>{event.payload.text}</p>}
-                        {event.payload.description && <p>{event.payload.description}</p>}
-                        {event.payload.status && (
-                          <p>Status: <span className="font-mono">{event.payload.status.from || 'New'} → {event.payload.status.to}</span></p>
-                        )}
-                        {event.payload.labelsAdded && (
-                          <p>Labels added: {event.payload.labelsAdded.map(label => 
-                            <Badge key={label} variant="outline" className="ml-1 text-xs">{label}</Badge>
-                          )}</p>
-                        )}
-                        {event.payload.assigneesAdded && (
-                          <p>Assigned to: <span className="font-medium">{event.payload.assigneesAdded.join(', ')}</span></p>
-                        )}
-                        {event.payload.reviewersAdded && (
-                          <p>Review requested: <span className="font-medium">{event.payload.reviewersAdded.join(', ')}</span></p>
-                        )}
-                        {event.payload.review && (
-                          <p>Review: <Badge variant="outline" className="ml-1">{event.payload.review.state.replace(/_/g, ' ')}</Badge> 
-                          {event.payload.review.body && <span className="ml-2 italic">&quot;{event.payload.review.body}&quot;</span>}</p>
-                        )}
-                        {event.payload.commit && (
-                          <div className="bg-muted p-3 rounded-md">
-                            <p className="font-mono text-xs mb-1 break-words">
-                              <Badge variant="outline" className="mr-2">{event.payload.commit.sha.substring(0, 7)}</Badge>
-                              <span className="break-words">{event.payload.commit.message}</span>
-                            </p>
-                            {event.payload.commit.filesChanged && (
-                              <p className="text-xs text-muted-foreground">
-                                {event.payload.commit.filesChanged} files changed, 
-                                <span className="text-green-600 ml-1">+{event.payload.commit.additions}</span>
-                                <span className="text-red-600 ml-1">-{event.payload.commit.deletions}</span>
-                              </p>
-                            )}
-                          </div>
-                        )}
-                        {event.payload.check && (
-                          <div className="flex items-center gap-2">
-                            <span>CI Check:</span>
-                            <Badge variant="outline">{event.payload.check.name}</Badge>
-                            <Badge variant={event.payload.check.conclusion === 'success' ? 'default' : 'destructive'}>
-                              {event.payload.check.status} {event.payload.check.conclusion && `(${event.payload.check.conclusion})`}
-                            </Badge>
-                          </div>
-                        )}
-                        {event.payload.closeReason && (
-                          <p>Close reason: <span className="italic">{event.payload.closeReason}</span></p>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </div>
-                {index < events.length - 1 && <Separator className="my-4" />}
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+        <TimelineCard events={events} />
       </div>
     </div>
   );
