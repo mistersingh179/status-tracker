@@ -20,6 +20,14 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Dark Mode
+
+The application does not currently support dark mode for end users.
+
+- Default behavior: the UI renders in light mode only. There is no theme toggle, no environment flag, and no automatic system theme detection.
+- Implementation note for developers: dark-mode styles are present in the codebase (Tailwind CSS v4 with a custom `dark:` variant defined in `src/app/globals.css`). These styles are applied only when a parent element has the `dark` class. The app does not add this class anywhere by default.
+- Previewing dark mode during development: you can temporarily add `className="dark"` to the `<html>` or `<body>` element in `src/app/layout.tsx` to see the dark palette. This is not an end‑user feature and is not persisted/configurable.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
